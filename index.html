@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNIQORN Shop — одяг та аксесуари для фітнесу, пол дансу і стретчингу</title>
+<base target="_top">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Montserrat:ital,wght@0,500;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--dark:#1E3239;--black:#0A1A1E;--lime:#CAFA10;--green:#0BC95A;--grey:#E5E7E9;--g:linear-gradient(45deg,#CAFA10,#0BC95A);--r:24px;--gap:20px}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--grey);color:var(--dark)}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--gap)}
+.wm{font-family:'Montserrat',sans-serif;font-weight:800;font-style:italic;letter-spacing:-.02em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:14px;padding:14px 24px;font:700 15px 'Montserrat',sans-serif;background:var(--g);color:var(--dark)}
+.btn:hover{filter:brightness(1.06)}.btn:disabled{opacity:.6}
+header{position:sticky;top:0;z-index:100;background:var(--dark);color:#fff}
+nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-size:22px}
+.brand svg{width:30px;height:30px}
+.links{display:flex;gap:28px;font:500 14px 'Montserrat',sans-serif}.links a:hover{color:var(--lime)}
+.cartbtn{position:relative;background:none;border:0;color:#fff;padding:8px}
+.cnt{position:absolute;top:0;right:-2px;background:var(--g);color:var(--dark);border-radius:99px;min-width:18px;height:18px;font:700 11px 'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center}
+@media(max-width:700px){.links{display:none}}
+.hero{position:relative;background:var(--black);color:#fff;overflow:hidden;border-radius:0 0 var(--r) var(--r)}
+.hero svg.flow{position:absolute;inset:0;width:100%;height:100%}
+.hero .in{position:relative;padding:clamp(56px,9vw,120px) 0;display:flex;flex-direction:column;gap:22px;max-width:620px}
+.hero h1{font-size:clamp(2.1rem,5.2vw,3.8rem);line-height:1.02}
+.hero h1 b{color:var(--lime)}
+.hero p{font-size:17px;line-height:1.6;opacity:.82;max-width:480px}
+.sec{padding:clamp(40px,6vw,72px) 0 24px}
+.sec h2{font-size:clamp(1.6rem,3vw,2.2rem)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 24px}
+.chip{border:0;border-radius:99px;padding:10px 18px;background:#fff;color:var(--dark);font:500 14px 'Montserrat',sans-serif}
+.chip.on{background:var(--dark);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);padding-bottom:56px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.grid{gap:12px}}
+.card{background:#fff;border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
+.media{position:relative;aspect-ratio:1;border-radius:calc(var(--r) - 8px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.media svg.ic{width:46%;height:46%;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.m0{background:var(--g);color:var(--dark)}.m1{background:var(--dark);color:var(--lime)}.m2{background:var(--grey);color:var(--green)}
+.media::after{content:"";position:absolute;left:-10%;right:-10%;top:68%;border-top:2px solid rgba(11,201,90,.35);transform:rotate(-24deg)}
+.m0::after{border-color:rgba(255,255,255,.55)}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.ph::after{display:none}
+.tag{position:absolute;top:10px;left:10px;z-index:1;background:var(--dark);color:var(--lime);border-radius:99px;font:700 11px 'Montserrat',sans-serif;padding:5px 10px}
+.info{padding:0 6px;display:flex;flex-direction:column;gap:3px}
+.cat{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+.name{font:500 15px/1.3 'Montserrat',sans-serif}
+.price{font:700 17px 'Montserrat',sans-serif}.price s{font-weight:400;opacity:.5;font-size:13px;margin-left:6px}
+.ctl{display:flex;gap:8px;padding:0 6px 6px;margin-top:auto}
+select,input,textarea{font:400 14px 'Manrope',sans-serif;border:1px solid #cfd4d6;border-radius:12px;background:#fff;padding:10px;color:var(--dark);width:100%;outline:0}
+input:focus,select:focus,textarea:focus{border-color:var(--green)}
+.ctl select{flex:1;min-width:0}
+.add{border:0;border-radius:12px;background:var(--dark);color:#fff;font:700 14px 'Montserrat',sans-serif;padding:0 16px;min-height:40px}
+.add:hover{background:var(--green)}
+.ben{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);padding-bottom:56px}
+@media(max-width:760px){.ben{grid-template-columns:1fr}}
+.ben div{background:#fff;border-radius:var(--r);padding:26px}
+.ben div:first-child{background:var(--g)}
+.ben h3{font:700 18px 'Montserrat',sans-serif;margin-bottom:8px}.ben p{font-size:14px;line-height:1.6}
+.contact{background:var(--dark);color:#fff;border-radius:var(--r);padding:clamp(28px,5vw,56px);display:flex;gap:40px;flex-wrap:wrap;margin-bottom:56px}
+.contact>div{flex:1 1 300px;display:flex;flex-direction:column;gap:14px}
+.contact h2{font-size:clamp(1.6rem,3vw,2.2rem)}.contact p{opacity:.8;line-height:1.6;font-size:14px}
+.f{display:flex;flex-direction:column;gap:6px}.f label{font-size:12px;font-weight:500}
+.f input.error,.f textarea.error,.f select.error{border-color:#e5484d}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.two{grid-template-columns:1fr}}
+.msg{display:none;font-size:13px;padding:10px 12px;border-radius:12px}.msg.show{display:block}
+.msg.ok{background:#dff7e8;color:#116b36}.msg.err{background:#fde4e4;color:#a12626}
+footer{background:var(--dark);color:#fff;border-radius:var(--r) var(--r) 0 0}
+.fg{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:36px 0 12px;font-size:14px}
+.fg p{opacity:.7;max-width:300px;margin-top:8px;line-height:1.6}.fg a{display:block;margin-bottom:8px;opacity:.85}
+.copy{padding:8px 0 24px;font-size:12px;opacity:.5}
+.ov{position:fixed;inset:0;background:rgba(10,26,30,.6);z-index:300;opacity:0;pointer-events:none;transition:.25s}.ov.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:92vw;background:#fff;z-index:301;transform:translateX(100%);transition:.3s;display:flex;flex-direction:column;border-radius:var(--r) 0 0 var(--r)}
+.drawer.open{transform:none}
+.dh{background:var(--dark);color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;border-radius:var(--r) 0 0 0;font:700 18px 'Montserrat',sans-serif}
+.x{background:none;border:0;color:inherit;font-size:24px;line-height:1}
+.items{flex:1;overflow:auto;padding:8px 24px}
+.empty{text-align:center;padding:60px 0;opacity:.6}
+.ci{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--grey)}
+.sw{position:relative;overflow:hidden;width:68px;height:68px;border-radius:16px;flex:none;display:flex;align-items:center;justify-content:center}.sw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sw svg{width:56%;height:56%;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cb{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ct{display:flex;justify-content:space-between;gap:10px;font:700 15px/1.3 'Montserrat',sans-serif}.ct b{white-space:nowrap}
+.cd{font-size:12px;line-height:1.45;opacity:.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cq{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.step{display:inline-flex;align-items:center;border:1.5px solid var(--dark);border-radius:99px;overflow:hidden}
+.step button{width:36px;height:34px;border:0;background:none;color:var(--dark);font:700 18px 'Montserrat',sans-serif}
+.step button:hover{background:var(--g)}
+.step span{min-width:32px;text-align:center;font:700 15px 'Montserrat',sans-serif}
+.rm{background:none;border:0;color:var(--dark);font-size:12px;text-decoration:underline;opacity:.6;padding:6px}.rm:hover{opacity:1}
+.empty a{display:inline-block;margin-top:10px;font-weight:700;text-decoration:underline}
+.desc{cursor:pointer;font-size:13px;line-height:1.4;opacity:.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.desc.open{-webkit-line-clamp:unset}
+.spec{align-self:flex-start;margin-top:4px;font:700 11px 'Montserrat',sans-serif;background:var(--grey);border-radius:99px;padding:4px 10px}
+.df{padding:20px 24px;border-top:1px solid var(--grey)}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;font:500 15px 'Montserrat',sans-serif}.tot b{font-size:22px}
+.mo{position:fixed;inset:0;background:rgba(10,26,30,.65);z-index:400;display:none;align-items:center;justify-content:center;padding:16px}.mo.open{display:flex}
+.modal{background:#fff;width:100%;max-width:520px;max-height:90vh;overflow:auto;border-radius:var(--r)}
+.mh{background:var(--dark);color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font:700 18px 'Montserrat',sans-serif;position:sticky;top:0}
+.mb{padding:24px;display:flex;flex-direction:column;gap:14px}
+.sum{background:var(--grey);border-radius:16px;padding:14px 16px;font-size:13px}
+.sum div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}.sum .gr{border-top:1px solid #c9ced0;margin-top:8px;padding-top:8px;font-weight:700}
+.ok-s{display:none;text-align:center;padding:48px 24px}.ok-s.show{display:block}.ok-s h3{font:800 24px 'Montserrat',sans-serif;margin-bottom:8px}
+</style>
+</head>
+<body>
+<header><nav class="wrap">
+  <a href="#top" class="brand wm"><svg viewBox="0 0 32 32"><defs><linearGradient id="lg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#CAFA10"/><stop offset="1" stop-color="#0BC95A"/></linearGradient></defs><path fill="url(#lg)" d="M3 4h8v14c0 3 1.800 5 5 5 2.600 0 4.400-1.300 5-3.800L26 2h5L24.500 22C23.500 27 20 30 16 30 8 30 3 25 3 18z"/></svg>UNIQORN Shop</a>
+  <div class="links"><a href="#shop">Магазин</a><a href="#contact">Контакти</a></div>
+  <button class="cartbtn" type="button" aria-label="Кошик" onclick="toggleCart()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg><span class="cnt" id="cartCount">0</span></button>
+</nav></header>
+
+<main id="top">
+<section class="hero">
+  <svg class="flow" viewBox="0 0 1200 600" preserveAspectRatio="xMaxYMid slice" fill="none" stroke="#0BC95A" stroke-width="2.500"><path d="M1200 90C900 90 820 330 560 330S300 560 0 560" opacity=".8"/><path d="M1200 470L980 470 840 600" stroke="#CAFA10" opacity=".7"/></svg>
+  <div class="wrap"><div class="in">
+    <span class="wm" style="color:var(--lime);font-size:15px">Pole · Stretch · Fitness</span>
+    <h1 class="wm">Рухайся <b>легко</b>.<br>Тренуйся сильно.</h1>
+    <p>Одяг та аксесуари для танців на пілоні, стретчингу й фітнесу — від засобів для зчеплення та стріпів до килимків і гумок. Усе для студії та дому.</p>
+    <a href="#shop" class="btn" style="width:fit-content">Дивитись товари</a>
+  </div></div>
+</section>
+
+<div class="wrap">
+  <div class="sec" id="shop"><h2 class="wm">Магазин</h2>
+    <input id="q" type="search" placeholder="Пошук товарів…" oninput="renderGrid()" style="max-width:340px;margin-top:16px">
+    <div class="chips" id="chips"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+  <div class="ben">
+    <div><h3>Доставка</h3><p>По Україні та за кордон. Вартість і строки підтвердимо після оформлення замовлення.</p></div>
+    <div><h3>Підбір розміру</h3><p>Не впевнені з розміром чи потрібно підібрати інвентар? Напишіть нам.</p></div>
+    <div><h3>Обмін і повернення</h3><p>Обмін невикористаних речей з бірками протягом [14] днів.</p></div>
+  </div>
+  <section class="contact" id="contact">
+    <div><span class="wm" style="color:var(--lime)">Контакти</span><h2 class="wm">Є питання щодо замовлення?</h2><p>Напишіть нам — відповімо протягом одного-двох робочих днів. Для наявного замовлення вкажіть ім’я та дату.</p></div>
+    <form id="contactForm" onsubmit="return false" style="flex:1 1 340px;display:flex;flex-direction:column;gap:14px">
+      <div class="f"><label for="cName">Ім’я *</label><input id="cName" placeholder="Олена"></div>
+      <div class="f"><label for="cEmail">Email *</label><input id="cEmail" type="email" placeholder="name@example.com"></div>
+      <div class="f"><label for="cSubject">Тема</label><select id="cSubject"><option>Загальне питання</option><option>Замовлення</option><option>Обмін і повернення</option><option>Опт</option></select></div>
+      <div class="f"><label for="cMessage">Повідомлення *</label><textarea id="cMessage" rows="4" placeholder="Чим можемо допомогти?"></textarea></div>
+      <button class="btn" type="button" id="contactSubmitBtn" onclick="submitContactForm()">Надіслати</button>
+      <div class="msg" id="contactMsg"></div>
+    </form>
+  </section>
+</div>
+</main>
+
+<footer><div class="wrap">
+  <div class="fg"><div><span class="wm" style="font-size:22px">UNIQORN Shop</span><p>Танці на пілоні, стретчинг і фітнес: одяг та аксесуари для тренувань.</p></div>
+  <div><a href="#shop">Магазин</a><a href="#contact">Контакти</a></div></div>
+  <div class="copy">© 2026 UNIQORN Shop</div>
+</div></footer>
+
+<div class="ov" id="overlay" onclick="toggleCart()"></div>
+<aside class="drawer" id="drawer"><div class="dh"><span>Кошик</span><button class="x" type="button" aria-label="Закрити" onclick="toggleCart()">&times;</button></div>
+  <div class="items" id="drawerItems"></div>
+  <div class="df"><div class="tot"><span>Разом</span><b id="totalPrice"></b></div><button class="btn" style="width:100%" type="button" onclick="openOrderForm()">Оформити замовлення →</button></div>
+</aside>
+
+<div class="mo" id="modalOverlay"><div class="modal">
+  <div class="mh"><span>Оформлення замовлення</span><button class="x" type="button" aria-label="Закрити" onclick="closeOrderForm()">&times;</button></div>
+  <div class="mb" id="orderModalBody">
+    <div class="sum" id="orderSummary"></div>
+    <form onsubmit="return false" style="display:flex;flex-direction:column;gap:14px">
+      <div class="two"><div class="f"><label for="oName">Ім’я та прізвище *</label><input id="oName"></div><div class="f"><label for="oEmail">Email *</label><input id="oEmail" type="email"></div></div>
+      <div class="f"><label for="oPhone">Телефон (з кодом країни) *</label><input id="oPhone" type="tel" placeholder="+380 50 123 4567"></div>
+      <div class="two"><div class="f"><label for="oCountry">Країна *</label><select id="oCountry"><option>Україна</option><option>Польща</option><option>Німеччина</option><option>Інша</option></select></div><div class="f"><label for="oCity">Місто *</label><input id="oCity"></div></div>
+      <div class="two"><div class="f"><label for="oPostal">Індекс</label><input id="oPostal"></div><div class="f"><label for="oApt">Кв./офіс</label><input id="oApt"></div></div>
+      <div class="f"><label for="oAddress">Адреса або відділення пошти *</label><input id="oAddress"></div>
+      <div class="f"><label for="oNotes">Коментар</label><textarea id="oNotes" rows="2"></textarea></div>
+      <button class="btn" type="button" id="submitOrderBtn" onclick="submitOrderForm()">Підтвердити замовлення →</button>
+      <div class="msg" id="orderMsg"></div>
+    </form>
+  </div>
+  <div class="ok-s" id="successScreen"><h3 class="wm">Дякуємо за замовлення!</h3><p id="successOrderId"></p><p style="margin:10px 0 20px">Ми зв’яжемося з вами для підтвердження.</p><button class="btn" type="button" onclick="closeOrderForm()">Закрити</button></div>
+</div></div>
+
+<script id="config">
+/* ==================================================================
+   КОНФІГУРАЦІЯ МАГАЗИНУ — ТУТ ВСТАВЛЯЙТЕ ХУКИ n8n
+   ------------------------------------------------------------------
+   1. У n8n створіть вузол Webhook (метод POST). У нього два URL:
+        Test URL        …/webhook-test/<шлях>   (працює, поки натиснуто «Listen for test event»)
+        Production URL  …/webhook/<шлях>        (працює, коли workflow активний)
+   2. Вставте їх нижче в потрібний рядок: test: '…', prod: '…'
+   3. N8N_MODE перемикає, який з двох URL використовується.
+   4. Рядок 'all' отримує КОЖНУ подію (зручно для одного workflow зі Switch
+      за полем event). Інші рядки — лише свою подію. Порожній URL = хук вимкнено.
+
+   Формат запиту (POST, JSON), який отримає n8n:
+     { "event": "order.created", "timestamp": "ISO-дата", "mode": "test",
+       "source": "UNIQORN Shop", "data": { …дані події… } }
+
+   У n8n Webhook-вузлі в Options → Allowed Origins (CORS) залиште * або вкажіть
+   домен сайту (https://<user>.github.io). URL у цьому файлі видно всім, хто
+   відкриє сайт: для тестів нормально, секретів тут не тримайте.
+   ================================================================== */
+var CONFIG = {
+  SHOP_NAME: 'UNIQORN Shop',
+  CURRENCY: '₴',
+
+  // Лише для GitHub Pages: URL веб-застосунку Apps Script (…/exec) з Code.gs.
+  // Усередині Apps Script не потрібен, там працює google.script.run.
+  // Розгортання: Execute as «Me», доступ «Anyone».
+  APPS_SCRIPT_URL: '',
+
+  N8N_MODE: 'test',        // 'test' або 'prod'
+  DEBUG: false,            // true або ?debug=1 в адресі: показує журнал хуків на сторінці
+
+  HOOKS: {
+    //  подія              Test URL      Production URL
+    'all':            { test: 'https://danit-n8n.duckdns.org/webhook-test/8376765e-26bd-4216-af3a-aeb6a9857a56', prod: '' },   // усі події
+    'cart.add':       { test: '', prod: '' },   // товар додано в кошик
+    'cart.remove':    { test: '', prod: '' },   // товар видалено з кошика
+    'checkout.open':  { test: '', prod: '' },   // відкрито форму замовлення
+    'order.created':  { test: '', prod: '' },   // замовлення успішно збережено
+    'order.failed':   { test: '', prod: '' },   // помилка під час збереження
+    'contact.sent':   { test: '', prod: '' }    // надіслано контактну форму
+  }
+  // Старий Zapier (більше не використовується): https://hooks.zapier.com/hooks/catch/28829976/4dgv1xi/
+};
+</script>
+<script>
+var CURRENCY = CONFIG.CURRENCY;
+
+var C_ALL = 'Усе';
+var CLOTH = ['XS','S','M','L','XL'], HEEL = ['1','2','3','4'];
+// Ціни та назви умовні: змініть у цьому масиві.
+// Фото: додайте поле image до товару, напр. image:'https://drive.google.com/thumbnail?id=ID_ФАЙЛУ&sz=w800'
+// (файл на Google Диску має бути відкритий за посиланням). Без image показується іконка.
+var products = [
+  {id:'p01',name:'Топ Flow Crop',category:'Одяг',price:749,icon:'top',sizes:CLOTH},
+  {id:'p02',name:'Легінси Lift High-Waist',category:'Одяг',price:1190,icon:'legg',sizes:CLOTH},
+  {id:'p03',name:'Шорти для полу Grip',category:'Pole Dance',price:599,was:749,icon:'shorts',sizes:CLOTH},
+  {id:'p04',name:'Засіб для зчеплення Dry Hands, 50 г',category:'Pole Dance',price:349,icon:'jar'},
+  {id:'p05',name:'Стріпи Platform 1"-4"',category:'Pole Dance',price:2490,icon:'heel',sizes:HEEL},
+  {id:'p06',name:'Наколінники Pole Pro',category:'Pole Dance',price:520,icon:'knee'},
+  {id:'p07',name:'Килимок Studio, 6 мм',category:'Стретчинг',price:1150,icon:'mat'},
+  {id:'p08',name:'Блок для йоги Cork',category:'Стретчинг',price:380,icon:'block'},
+  {id:'p09',name:'Ремінь для розтяжки',category:'Стретчинг',price:290,icon:'strap'},
+  {id:'p10',name:'Масажний валик Roll Relief',category:'Стретчинг',price:690,icon:'roller'},
+  {id:'p11',name:'Набір гумок-петель, 5 шт.',category:'Фітнес',price:540,icon:'band'},
+  {id:'p12',name:'Неопренові гантелі 2×2 кг',category:'Фітнес',price:640,icon:'bell'},
+  {id:'p13',name:'Рушник Microfiber',category:'Фітнес',price:420,icon:'towel'},
+  {id:'p14',name:'Пляшка Flow, 750 мл',category:'Фітнес',price:460,was:540,icon:'bottle'},
+  {id:'p15',name:'Сумка Studio, 25 л',category:'Фітнес',price:1350,icon:'bag'}
+];
+var DESC = {
+ "p01": "Легкий та дихаючий укорочений топ призначений для інтенсивних тренувань і повсякденного носіння. Ергономічний крій забезпечує повну свободу рухів і надійну підтримку під час будь-якої активності.",
+ "p02": "Еластичні спортивні легінси з високою талією, які підкреслюють силует і надають ефект підтяжки. Компресійний матеріал чудово відводить вологу та залишається непрозорим при згинанні.",
+ "p03": "Спеціалізовані шорти з високою посадкою для максимального зчеплення з пілоном. М’яка тканина щільно прилягає до тіла та забезпечує комфорт під час виконання складних трюків і елементів.",
+ "p04": "Рідкий засіб проти ковзання долонь, який миттєво створює сухе прозоре покриття. Ідеально підходить для Pole Dance, гімнастики та фітнесу, запобігаючи ковзанню руки на снарядах.",
+ "p05": "Професійне взуття для Pole Dance на платформі заввишки 1–4 дюйми із прозорими ремінцями. Спеціальна колодка та міцна підошва забезпечують стійкість і візуально подовжують ноги під час виступів.",
+ "p06": "Захисні наколінники з анатомічною подушкою для комфортної партерної хореографії та тренувань. Щільно фіксуються на нозі, захищають суглоби від синяків та зсувів під час інтенсивних занять.",
+ "p07": "Універсальний килимок для розтяжки та йоги товщиною 6 мм із протиковзною текстурою. Забезпечує оптимальну амортизацію для колін і спини під час виконання вправ на підлозі.",
+ "p08": "Екологічний опорний блок із натурального корка високої щільності. Допомагає зберігати рівновагу, поглиблює розтяжку та забезпечує надійну опору в будь-яких асанах.",
+ "p09": "Міцний бавовняний ремінь із регульованими пряжками для безпечної та поступової розтяжки. Допомагає покращити гнучкість без ризику травмувати м’язи.",
+ "p10": "Текстурований масажний ролер для міофасціального релізу та відновлення м’язів після тренувань. Ефективно знімає напругу у спині, стегнах та литках, покращуючи кровообіг.",
+ "p11": "Комплект із 5 латексних фітнес-гумок із різним рівнем опору для опрацювання всіх груп м’язів. Зручний компактний набір дозволяє тренуватися як вдома, так і в поїздках.",
+ "p12": "Пара фітнес-гантелей вагою 2 кг із протиковзним неопреновим покриттям. Вони зручно лежать у руці, не вислизають під час активних рухів і не дряпають підлогу.",
+ "p13": "Компактний спортивний рушник із мікрофібри, який швидко вбирає вологу та миттєво сохне. Займає мінімум місця в сумці й чудово підходить для залу.",
+ "p14": "Зручна спортивна пляшка з герметичним клапаном та ергономічним корпусом. Виготовлена з безпечного пластику без BPA, підходить для тренувань і щоденного використання.",
+ "p15": "Містка та стильна спортивна сумка з окремими відділеннями для взуття та мокрих речей. Оснащена міцними ручками та знімним наплічним ременем для зручного транспортування."
+};
+// Фото товарів: посилання на зображення (відсутнє або зламане посилання → показується іконка).
+var IMG = {
+ "p01": "https://rueactivewear.com/cdn/shop/files/flow-crop-whiterue-avenue-activeweartop-6382750.png?v=1782399966",
+ "p02": "https://eu.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F1qEaJvcoiJG8CCCioCzb4p%2Fdd68a583e92ea1c14e6973803f38b593%2FSeasonal-Ecom-PLP_-_Link_Card_-_27570264.jpeg&w=3840&q=75",
+ "p03": "https://dragonflybrand.com/cdn/shop/files/betty-shorts-shorts-dragonfly-920666.jpg?v=1782115368&width=1080",
+ "p04": "https://i.ebayimg.com/images/g/HToAAOSwPq1kr9wc/s-l400.png",
+ "p05": "https://i5.walmartimages.com/asr/9d8f622e-014a-4bdf-9069-f16455e2f70b.ea3bd8e54fe583398a9dd7aac2f59ab0.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
+ "p06": "https://images.squarespace-cdn.com/content/v1/662c627b82bbda7019f46131/97595b36-d564-43c1-ac49-ba32145dd89d/H2.jpg?format=1500w",
+ "p07": "https://www.yogastudiostore.com/cdn/shop/files/s3wbkb3rgr2.jpg?v=1779879075",
+ "p08": "https://kinandally.com/cdn/shop/files/1_595b95a2-ebbd-4fc0-9a90-e97a80ee9400.png?v=1750741439",
+ "p09": "https://www.yogikuti.com/wp-content/uploads/2025/09/Strap-Purple.jpg",
+ "p10": "https://fremont.edu/wp-content/uploads/2018/02/form-roller-exercises.jpg",
+ "p11": "https://i5.walmartimages.com/seo/Resistance-Bands-Loop-Set-of-5-Exercise-Workout-CrossFit-Fitness-Yoga-Booty-Band_96754339-a9cb-42c7-ba07-0b45f8c5be98.708d2b5003b575b495462114ad7aa00f.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
+ "p12": "https://nwscdn.com/media/catalog/product/cache/h900xw900/f/o/forza-neoprene-hex-dumbell-2kg_1.jpg",
+ "p13": "https://www.gymmart.com.au/assets/alt_10/SPRTOWEL.jpg?20220107192752",
+ "p14": "https://nwscdn.com/media/catalog/product/cache/h900xw900/y/e/yellow-water-bottle-durable_2_6.jpg",
+ "p15": "https://www.stubbleandco.com/cdn/shop/files/gym-duffel-25l-black-studio-handles-hanging-up.jpg?v=1773991419&width=2048"
+};
+var SPEC = {p04:'50 г', p07:'6 мм', p11:'5 шт. у наборі', p12:'2×2 кг', p14:'750 мл', p15:'25 л'};
+products.forEach(function(p){ p.desc = DESC[p.id] || ''; p.image = IMG[p.id] || ''; p.spec = SPEC[p.id] || ''; });
+var ICONS = {
+  top:'M16 8l8 4 8-4 10 6-4 8-5-2v20H15V20l-5 2-4-8z',
+  legg:'M14 6h20l1 14-4 22h-5l-2-18-2 18h-5l-4-22z',
+  shorts:'M10 8h28l3 24H30l-6-12-6 12H7z',
+  jar:'M14 12h20v7H14zM12 19h24v21a2 2 0 01-2 2H14a2 2 0 01-2-2zM18 29h12',
+  heel:'M7 12l7 3 4 14 21 4v6H12L7 12zM30 33v8',
+  knee:'M24 8c8 0 12 6 12 14s-4 18-12 18-12-10-12-18S16 8 24 8zM16 22h16',
+  mat:'M24 8a16 16 0 100 32 16 16 0 000-32zM24 16a8 8 0 100 16 8 8 0 000-16z',
+  block:'M8 16l16-8 16 8v16l-16 8-16-8zM8 16l16 8 16-8M24 24v16',
+  strap:'M6 20h36v8H6zM14 20v8M34 20v8',
+  roller:'M10 14h28v20H10zM10 14a4 4 0 000 20M38 14a4 4 0 010 20',
+  band:'M6 24c0-8 8-12 18-12s18 4 18 12-8 12-18 12S6 32 6 24zM12 24c0-4 5-6 12-6s12 2 12 6-5 6-12 6-12-2-12-6z',
+  bell:'M8 20v8M14 16v16M34 16v16M40 20v8M14 24h20',
+  towel:'M10 8h28v32H10zM10 16h28M10 32h28',
+  bottle:'M20 6h8v6l4 6v24a2 2 0 01-2 2H18a2 2 0 01-2-2V18l4-6zM16 26h16',
+  bag:'M8 18h32l-3 22H11zM17 18v-4a7 7 0 0114 0v4'
+};
+var cart = [], filter = C_ALL;
+
+function money(n){ return Number(n).toLocaleString('uk-UA') + ' ' + CURRENCY; }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function byId(id){ return products.filter(function(p){ return p.id === id; })[0]; }
+function $(id){ return document.getElementById(id); }
+function newId(prefix){ return prefix + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8).toUpperCase(); }
+
+// ---- збереження кошика між перезавантаженнями ----
+var CART_KEY = 'uniqorn_cart_v1';
+function saveCart(){ try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} }
+function loadCart(){
+  try { cart = (JSON.parse(localStorage.getItem(CART_KEY)) || []).filter(function(x){ return byId(x.id) && x.qty > 0; }); }
+  catch (e) { cart = []; }
+}
+
+// ---- хуки n8n: emit('подія', дані) ----
+var hookLog = [];
+function debugOn(){ return CONFIG.DEBUG || /[?&]debug=1/.test(location.search); }
+function renderDebug(){
+  if (!debugOn()) return;
+  var el = $('hookDebug');
+  if (!el) {
+    el = document.createElement('div'); el.id = 'hookDebug';
+    el.style.cssText = 'position:fixed;left:12px;bottom:12px;z-index:999;max-width:340px;background:#0A1A1E;color:#CAFA10;font:12px/1.5 monospace;padding:10px 12px;border-radius:12px';
+    document.body.appendChild(el);
+  }
+  el.innerHTML = '<b>n8n · ' + CONFIG.N8N_MODE + '</b><br>' + hookLog.slice(-8).map(function(r){ return esc(r.hook + ' ← ' + r.event + ': ' + r.status); }).join('<br>');
+}
+function emit(event, data){
+  var envelope = {event:event, timestamp:new Date().toISOString(), mode:CONFIG.N8N_MODE, source:CONFIG.SHOP_NAME, data:data};
+  ['all', event].forEach(function(key){
+    var h = CONFIG.HOOKS[key], url = h && h[CONFIG.N8N_MODE];
+    if (!url) {
+      if (key !== 'all') { hookLog.push({hook:key, event:event, status:'URL не задано'}); renderDebug(); }
+      return;
+    }
+    var rec = {hook:key, event:event, status:'…'}; hookLog.push(rec); renderDebug();
+    fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(envelope), keepalive:true})
+      .then(function(r){ rec.status = r.status; })
+      .catch(function(e){ rec.status = 'помилка'; console.warn('[hook] ' + key, e); })
+      .then(renderDebug);
+  });
+}
+
+function renderChips(){
+  var cats = [C_ALL]; products.forEach(function(p){ if (cats.indexOf(p.category) < 0) cats.push(p.category); });
+  $('chips').innerHTML = cats.map(function(c){
+    return '<button type="button" class="chip' + (c === filter ? ' on' : '') + '" onclick="setFilter(\'' + c + '\')">' + c + '</button>';
+  }).join('');
+}
+function setFilter(c){ filter = c; renderChips(); renderGrid(); }
+
+function renderGrid(){
+  var q = ($('q') ? $('q').value : '').trim().toLowerCase();
+  var html = products.map(function(p, i){
+    if ((filter !== C_ALL && p.category !== filter) || (q && (p.name + ' ' + p.desc).toLowerCase().indexOf(q) < 0)) return '';
+    var sel = p.sizes ? '<select id="size-' + p.id + '" aria-label="Розмір">' + p.sizes.map(function(s){ return '<option>' + s + '</option>'; }).join('') + '</select>' : '<span style="flex:1"></span>';
+    return '<div class="card"><div class="media m' + (i % 3) + (p.image ? ' ph' : '') + '">' + (p.was ? '<span class="tag">Знижка</span>' : '') +
+      '<svg class="ic" viewBox="0 0 48 48"><path d="' + ICONS[p.icon] + '"/></svg>' +
+      (p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + '</div>' +
+      '<div class="info"><span class="cat">' + p.category + '</span><span class="name">' + esc(p.name) + '</span><span class="desc" title="Показати повністю" onclick="this.classList.toggle(\'open\')">' + esc(p.desc) + '</span>' + (p.spec ? '<span class="spec">' + esc(p.spec) + '</span>' : '') +
+      '<span class="price">' + money(p.price) + (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</span></div>' +
+      '<div class="ctl">' + sel + '<button class="add" type="button" onclick="addToCart(\'' + p.id + '\')">У кошик</button></div></div>';
+  }).join('');
+  $('grid').innerHTML = html || '<p style="grid-column:1/-1;opacity:.6">Нічого не знайдено.</p>';
+}
+
+function addToCart(id){
+  var p = byId(id); if (!p) return;
+  var el = $('size-' + id), size = el ? el.value : '';
+  var ex = cart.filter(function(x){ return x.id === id && x.size === size; })[0];
+  if (ex) ex.qty++; else cart.push({id:id, name:p.name, category:p.category, price:p.price, size:size, qty:1});
+  emit('cart.add', {id:id, name:p.name, size:size, price:p.price, qty:ex ? ex.qty : 1});
+  updateCart();
+  if (!$('drawer').classList.contains('open')) toggleCart();
+}
+function changeQty(id, size, d){
+  cart.forEach(function(x){ if (x.id === id && x.size === size) x.qty += d; });
+  cart = cart.filter(function(x){ return x.qty > 0; });
+  updateCart();
+}
+function removeItem(id, size){ cart = cart.filter(function(x){ return !(x.id === id && x.size === size); }); emit('cart.remove', {id:id, size:size}); updateCart(); }
+function subtotal(){ return cart.reduce(function(s, x){ return s + x.price * x.qty; }, 0); }
+
+function updateCart(){
+  saveCart();
+  $('cartCount').textContent = cart.reduce(function(s, x){ return s + x.qty; }, 0);
+  $('totalPrice').textContent = money(subtotal());
+  $('drawerItems').innerHTML = !cart.length ? '<div class="empty">Кошик порожній.<br><a href="#shop" onclick="toggleCart()">Обрати товари</a></div>' : cart.map(function(x){
+    var p = byId(x.id) || {}, k = '\'' + x.id + '\',\'' + x.size + '\'';
+    return '<div class="ci"><div class="sw m' + (Math.max(0, products.indexOf(p)) % 3) + '"><svg viewBox="0 0 48 48"><path d="' + (ICONS[p.icon] || '') + '"/></svg>' + (p.image ? '<img src="' + esc(p.image) + '" alt="" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + '</div>' +
+      '<div class="cb"><div class="ct"><span>' + esc(x.name) + '</span><b>' + money(x.price * x.qty) + '</b></div>' +
+      '<div class="cd">' + (x.size ? 'Розмір: ' + x.size + '. ' : '') + esc(p.desc || '') + '</div>' +
+      '<div class="cq"><div class="step"><button type="button" aria-label="Менше" onclick="changeQty(' + k + ',-1)">&minus;</button><span>' + x.qty + '</span><button type="button" aria-label="Більше" onclick="changeQty(' + k + ',1)">+</button></div>' +
+      '<button class="rm" type="button" onclick="removeItem(' + k + ')">Видалити</button></div></div></div>';
+  }).join('');
+}
+function toggleCart(){ $('drawer').classList.toggle('open'); $('overlay').classList.toggle('open'); }
+
+function openOrderForm(){
+  if (!cart.length) return;
+  emit('checkout.open', {items:cart.length, subtotal:subtotal(), currency:CURRENCY});
+  $('orderSummary').innerHTML = cart.map(function(x){
+    return '<div><span>' + esc(x.name) + (x.size ? ' (' + x.size + ')' : '') + ' × ' + x.qty + '</span><span>' + money(x.price * x.qty) + '</span></div>';
+  }).join('') + '<div class="gr"><span>Разом</span><span>' + money(subtotal()) + '</span></div>';
+  $('modalOverlay').classList.add('open');
+  $('successScreen').classList.remove('show');
+  $('orderModalBody').style.display = '';
+  $('orderMsg').className = 'msg';
+  if ($('drawer').classList.contains('open')) toggleCart();
+}
+function closeOrderForm(){ $('modalOverlay').classList.remove('open'); }
+
+function validateFields(ids){
+  var ok = true;
+  ids.forEach(function(id){
+    var el = $(id), v = el.value && el.value.trim();
+    var bad = !v || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(v));
+    el.classList.toggle('error', bad);
+    if (bad) ok = false;
+  });
+  return ok;
+}
+
+// ---- збереження даних: Apps Script (всередині) або Code.gs за URL (GitHub Pages) ----
+function hasGas(){ return !!(window.google && google.script && google.script.run); }
+function postJson(url, payload){
+  // Тіло без Content-Type: application/json, щоб не було preflight (Apps Script не відповідає на OPTIONS).
+  return fetch(url, {method:'POST', body:JSON.stringify(payload)})
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if (!j.ok) throw new Error(j.error || 'Помилка сервера'); return j.result || j; });
+}
+function callServer(fn, payload){
+  if (hasGas()) return new Promise(function(res, rej){ google.script.run.withSuccessHandler(res).withFailureHandler(rej)[fn](payload); });
+  if (CONFIG.APPS_SCRIPT_URL) return postJson(CONFIG.APPS_SCRIPT_URL, payload);
+  console.warn('[preview] ' + fn + ': немає ні Apps Script, ні APPS_SCRIPT_URL, дані нікуди не збережено', payload);
+  return new Promise(function(r){ setTimeout(function(){ r({ok:true, orderId:payload.orderId}); }, 400); });
+}
+
+function submitOrderForm(){
+  if (!validateFields(['oName','oEmail','oPhone','oCity','oAddress'])) return;
+  var btn = $('submitOrderBtn'), msg = $('orderMsg');
+  btn.disabled = true; btn.textContent = 'Надсилаємо…'; msg.className = 'msg';
+  var payload = {
+    customer:{
+      fullName:$('oName').value.trim(), email:$('oEmail').value.trim(), phone:$('oPhone').value.trim(),
+      country:$('oCountry').value, city:$('oCity').value.trim(), postalCode:$('oPostal').value.trim(),
+      aptUnit:$('oApt').value.trim(), address:$('oAddress').value.trim(), notes:$('oNotes').value.trim()
+    },
+    items:cart.map(function(x){ return {id:x.id, name:x.name, category:x.category, size:x.size, qty:x.qty, price:x.price}; }),
+    subtotal:subtotal(), currency:CURRENCY, orderDate:new Date().toISOString(),
+    orderId:newId('ORD'), eventType:'order'
+  };
+  callServer('submitOrder', payload).then(function(res){
+    var oid = (res && res.orderId) || payload.orderId;
+    emit('order.created', {orderId:oid, customer:payload.customer, items:payload.items, subtotal:payload.subtotal, currency:payload.currency, orderDate:payload.orderDate});
+    cart = []; updateCart();
+    $('orderModalBody').style.display = 'none';
+    $('successOrderId').textContent = 'Номер замовлення: ' + (oid || '—');
+    $('successScreen').classList.add('show');
+  }).catch(function(err){
+    emit('order.failed', {orderId:payload.orderId, error:String((err && err.message) || err)});
+    msg.textContent = 'Не вдалося надіслати замовлення. Спробуйте ще раз. (' + (err && err.message ? err.message : err) + ')';
+    msg.className = 'msg err show';
+  }).finally(function(){ btn.disabled = false; btn.textContent = 'Підтвердити замовлення →'; });
+}
+
+function submitContactForm(){
+  if (!validateFields(['cName','cEmail','cMessage'])) return;
+  var btn = $('contactSubmitBtn'), msg = $('contactMsg');
+  btn.disabled = true; btn.textContent = 'Надсилаємо…'; msg.className = 'msg';
+  var payload = {name:$('cName').value.trim(), email:$('cEmail').value.trim(), subject:$('cSubject').value, message:$('cMessage').value.trim(), sentAt:new Date().toISOString(), eventType:'contact'};
+  callServer('submitContact', payload).then(function(){
+    emit('contact.sent', payload);
+    $('contactForm').reset();
+    msg.textContent = 'Дякуємо! Повідомлення надіслано, ми скоро відповімо.';
+    msg.className = 'msg ok show';
+  }).catch(function(err){
+    msg.textContent = 'Не вдалося надіслати повідомлення. Спробуйте ще раз. (' + (err && err.message ? err.message : err) + ')';
+    msg.className = 'msg err show';
+  }).finally(function(){ btn.disabled = false; btn.textContent = 'Надіслати'; });
+}
+
+// ---- товари: products.json поруч з index.html (GitHub Pages). Якщо файлу немає, береться вбудований список вище ----
+function specOf(j){
+  var u = {ml:'мл', mm:'мм', kg:'кг', g:'г', l:'л'};
+  function f(v){ return String(v).replace(/x/i, '×').replace(/(\d)\s*(ml|mm|kg|g|l)\b/ig, function(m, d, k){ return d + ' ' + u[k.toLowerCase()]; }); }
+  if (j.quantity_in_set) return j.quantity_in_set + ' шт. у наборі';
+  return (j.weight && f(j.weight)) || (j.thickness && f(j.thickness)) || (j.volume && f(j.volume)) || '';
+}
+function fromJson(j){
+  var n = Number(j.id), id = isNaN(n) ? String(j.id) : 'p' + (n < 10 ? '0' : '') + n;
+  var byCat = {'Одяг':'top', 'Pole Dance':'heel', 'Стретчинг':'mat', 'Фітнес':'bell'};
+  return {id:id, name:j.name, category:j.category, price:j.price, was:j.old_price, sizes:j.sizes,
+          icon:(ICONS[j.icon] ? j.icon : byCat[j.category] || 'bell'), desc:j.description || '', image:j.image_url || '', spec:specOf(j)};
+}
+function start(){ loadCart(); renderChips(); renderGrid(); updateCart(); }
+fetch('products.json', {cache:'no-store'})
+  .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(function(list){ if (Array.isArray(list) && list.length) products = list.map(fromJson); })
+  .catch(function(){ console.info('[products] products.json недоступний, використано вбудований список'); })
+  .then(start);
+</script>
+</body>
+</html>
