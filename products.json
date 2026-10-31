@@ -1,0 +1,187 @@
+[
+  {
+    "id": 1,
+    "category": "Одяг",
+    "name": "Топ Flow Crop",
+    "price": 749,
+    "currency": "UAH",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "icon": "top",
+    "description": "Легкий та дихаючий укорочений топ призначений для інтенсивних тренувань і повсякденного носіння. Ергономічний крій забезпечує повну свободу рухів і надійну підтримку під час будь-якої активності.",
+    "image_url": "https://rueactivewear.com/cdn/shop/files/flow-crop-whiterue-avenue-activeweartop-6382750.png?v=1782399966"
+  },
+  {
+    "id": 2,
+    "category": "Одяг",
+    "name": "Легінси Lift High-Waist",
+    "price": 1190,
+    "currency": "UAH",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "icon": "legg",
+    "description": "Еластичні спортивні легінси з високою талією, які підкреслюють силует і надають ефект підтяжки. Компресійний матеріал чудово відводить вологу та залишається непрозорим при згинанні.",
+    "image_url": "https://eu.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F1qEaJvcoiJG8CCCioCzb4p%2Fdd68a583e92ea1c14e6973803f38b593%2FSeasonal-Ecom-PLP_-_Link_Card_-_27570264.jpeg&w=3840&q=75"
+  },
+  {
+    "id": 3,
+    "category": "Pole Dance",
+    "name": "Шорти для полу Grip",
+    "price": 599,
+    "old_price": 749,
+    "currency": "UAH",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "icon": "shorts",
+    "description": "Спеціалізовані шорти з високою посадкою для максимального зчеплення з пілоном. М’яка тканина щільно прилягає до тіла та забезпечує комфорт під час виконання складних трюків і елементів.",
+    "image_url": "https://dragonflybrand.com/cdn/shop/files/betty-shorts-shorts-dragonfly-920666.jpg?v=1782115368&width=1080"
+  },
+  {
+    "id": 4,
+    "category": "Pole Dance",
+    "name": "Засіб для зчеплення Dry Hands, 50 г",
+    "price": 349,
+    "currency": "UAH",
+    "weight": "50g",
+    "icon": "jar",
+    "description": "Рідкий засіб проти ковзання долонь, який миттєво створює сухе прозоре покриття. Ідеально підходить для Pole Dance, гімнастики та фітнесу, запобігаючи ковзанню руки на снарядах.",
+    "image_url": "https://i.ebayimg.com/images/g/HToAAOSwPq1kr9wc/s-l400.png"
+  },
+  {
+    "id": 5,
+    "category": "Pole Dance",
+    "name": "Стріпи Platform 1\"-4\"",
+    "price": 2490,
+    "currency": "UAH",
+    "sizes": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "icon": "heel",
+    "description": "Професійне взуття для Pole Dance на платформі заввишки 1–4 дюйми із прозорими ремінцями. Спеціальна колодка та міцна підошва забезпечують стійкість і візуально подовжують ноги під час виступів.",
+    "image_url": "https://i5.walmartimages.com/asr/9d8f622e-014a-4bdf-9069-f16455e2f70b.ea3bd8e54fe583398a9dd7aac2f59ab0.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF"
+  },
+  {
+    "id": 6,
+    "category": "Pole Dance",
+    "name": "Наколінники Pole Pro",
+    "price": 520,
+    "currency": "UAH",
+    "icon": "knee",
+    "description": "Захисні наколінники з анатомічною подушкою для комфортної партерної хореографії та тренувань. Щільно фіксуються на нозі, захищають суглоби від синяків та зсувів під час інтенсивних занять.",
+    "image_url": "https://images.squarespace-cdn.com/content/v1/662c627b82bbda7019f46131/97595b36-d564-43c1-ac49-ba32145dd89d/H2.jpg?format=1500w"
+  },
+  {
+    "id": 7,
+    "category": "Стретчинг",
+    "name": "Килимок Studio, 6 мм",
+    "price": 1150,
+    "currency": "UAH",
+    "thickness": "6mm",
+    "icon": "mat",
+    "description": "Універсальний килимок для розтяжки та йоги товщиною 6 мм із протиковзною текстурою. Забезпечує оптимальну амортизацію для колін і спини під час виконання вправ на підлозі.",
+    "image_url": "https://www.yogastudiostore.com/cdn/shop/files/s3wbkb3rgr2.jpg?v=1779879075"
+  },
+  {
+    "id": 8,
+    "category": "Стретчинг",
+    "name": "Блок для йоги Cork",
+    "price": 380,
+    "currency": "UAH",
+    "icon": "block",
+    "description": "Екологічний опорний блок із натурального корка високої щільності. Допомагає зберігати рівновагу, поглиблює розтяжку та забезпечує надійну опору в будь-яких асанах.",
+    "image_url": "https://kinandally.com/cdn/shop/files/1_595b95a2-ebbd-4fc0-9a90-e97a80ee9400.png?v=1750741439"
+  },
+  {
+    "id": 9,
+    "category": "Стретчинг",
+    "name": "Ремінь для розтяжки",
+    "price": 290,
+    "currency": "UAH",
+    "icon": "strap",
+    "description": "Міцний бавовняний ремінь із регульованими пряжками для безпечної та поступової розтяжки. Допомагає покращити гнучкість без ризику травмувати м’язи.",
+    "image_url": "https://www.yogikuti.com/wp-content/uploads/2025/09/Strap-Purple.jpg"
+  },
+  {
+    "id": 10,
+    "category": "Стретчинг",
+    "name": "Масажний валик Roll Relief",
+    "price": 690,
+    "currency": "UAH",
+    "icon": "roller",
+    "description": "Текстурований масажний ролер для міофасціального релізу та відновлення м’язів після тренувань. Ефективно знімає напругу у спині, стегнах та литках, покращуючи кровообіг.",
+    "image_url": "https://fremont.edu/wp-content/uploads/2018/02/form-roller-exercises.jpg"
+  },
+  {
+    "id": 11,
+    "category": "Фітнес",
+    "name": "Набір гумок-петель, 5 шт.",
+    "price": 540,
+    "currency": "UAH",
+    "quantity_in_set": 5,
+    "icon": "band",
+    "description": "Комплект із 5 латексних фітнес-гумок із різним рівнем опору для опрацювання всіх груп м’язів. Зручний компактний набір дозволяє тренуватися як вдома, так і в поїздках.",
+    "image_url": "https://i5.walmartimages.com/seo/Resistance-Bands-Loop-Set-of-5-Exercise-Workout-CrossFit-Fitness-Yoga-Booty-Band_96754339-a9cb-42c7-ba07-0b45f8c5be98.708d2b5003b575b495462114ad7aa00f.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF"
+  },
+  {
+    "id": 12,
+    "category": "Фітнес",
+    "name": "Неопренові гантелі 2×2 кг",
+    "price": 640,
+    "currency": "UAH",
+    "weight": "2x2kg",
+    "icon": "bell",
+    "description": "Пара фітнес-гантелей вагою 2 кг із протиковзним неопреновим покриттям. Вони зручно лежать у руці, не вислизають під час активних рухів і не дряпають підлогу.",
+    "image_url": "https://nwscdn.com/media/catalog/product/cache/h900xw900/f/o/forza-neoprene-hex-dumbell-2kg_1.jpg"
+  },
+  {
+    "id": 13,
+    "category": "Фітнес",
+    "name": "Рушник Microfiber",
+    "price": 420,
+    "currency": "UAH",
+    "icon": "towel",
+    "description": "Компактний спортивний рушник із мікрофібри, який швидко вбирає вологу та миттєво сохне. Займає мінімум місця в сумці й чудово підходить для залу.",
+    "image_url": "https://www.gymmart.com.au/assets/alt_10/SPRTOWEL.jpg?20220107192752"
+  },
+  {
+    "id": 14,
+    "category": "Фітнес",
+    "name": "Пляшка Flow, 750 мл",
+    "price": 460,
+    "old_price": 540,
+    "currency": "UAH",
+    "volume": "750ml",
+    "icon": "bottle",
+    "description": "Зручна спортивна пляшка з герметичним клапаном та ергономічним корпусом. Виготовлена з безпечного пластику без BPA, підходить для тренувань і щоденного використання.",
+    "image_url": "https://nwscdn.com/media/catalog/product/cache/h900xw900/y/e/yellow-water-bottle-durable_2_6.jpg"
+  },
+  {
+    "id": 15,
+    "category": "Фітнес",
+    "name": "Сумка Studio, 25 л",
+    "price": 1350,
+    "currency": "UAH",
+    "volume": "25L",
+    "icon": "bag",
+    "description": "Містка та стильна спортивна сумка з окремими відділеннями для взуття та мокрих речей. Оснащена міцними ручками та знімним наплічним ременем для зручного транспортування.",
+    "image_url": "https://www.stubbleandco.com/cdn/shop/files/gym-duffel-25l-black-studio-handles-hanging-up.jpg?v=1773991419&width=2048"
+  }
+]
