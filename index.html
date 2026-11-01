@@ -214,11 +214,11 @@ var CONFIG = {
 
   HOOKS: {
     //  подія              Test URL      Production URL
-    'all':            { test: 'https://danit-n8n.duckdns.org/webhook-test/8376765e-26bd-4216-af3a-aeb6a9857a56', prod: '' },   // усі події
+    'all':            { test: '', prod: '' },   // усі події
     'cart.add':       { test: '', prod: '' },   // товар додано в кошик
     'cart.remove':    { test: '', prod: '' },   // товар видалено з кошика
     'checkout.open':  { test: '', prod: '' },   // відкрито форму замовлення
-    'order.created':  { test: '', prod: '' },   // замовлення успішно збережено
+    'order.created':  { test: 'https://danit-n8n.duckdns.org/webhook-test/8376765e-26bd-4216-af3a-aeb6a9857a56', prod: '' },   // замовлення успішно збережено
     'order.failed':   { test: '', prod: '' },   // помилка під час збереження
     'contact.sent':   { test: '', prod: '' }    // надіслано контактну форму
   }
@@ -318,6 +318,21 @@ function cartSnapshot(){
     itemsCount: cart.reduce(function(s, x){ return s + x.qty; }, 0),
     subtotal: subtotal(),
     currency: CURRENCY
+  };
+}
+
+// Повні дані замовлення для хуків: покупець + кожен товар із деталями + суми.
+function orderEventData(payload){
+  var items = payload.items.map(function(it){
+    var p = byId(it.id) || {};
+    return {id:it.id, name:it.name, category:it.category, size:it.size, qty:it.qty, price:it.price,
+            lineTotal:it.price * it.qty, spec:p.spec || '', description:p.desc || '', image:p.image || ''};
+  });
+  return {
+    orderId:payload.orderId, orderDate:payload.orderDate, customer:payload.customer, items:items,
+    itemsCount:items.reduce(function(s, x){ return s + x.qty; }, 0),
+    subtotal:payload.subtotal, currency:payload.currency,
+    summary:items.map(function(x){ return x.name + (x.size ? ' (' + x.size + ')' : '') + ' × ' + x.qty + ' = ' + x.lineTotal + ' ' + payload.currency; }).join('\n')
   };
 }
 
@@ -469,13 +484,15 @@ function submitOrderForm(){
   };
   callServer('submitOrder', payload).then(function(res){
     var oid = (res && res.orderId) || payload.orderId;
-    emit('order.created', {orderId:oid, customer:payload.customer, items:payload.items, subtotal:payload.subtotal, currency:payload.currency, orderDate:payload.orderDate});
+    var ev = orderEventData(payload); ev.orderId = oid;
+    emit('order.created', ev);
     cart = []; updateCart();
     $('orderModalBody').style.display = 'none';
     $('successOrderId').textContent = 'Номер замовлення: ' + (oid || '—');
     $('successScreen').classList.add('show');
   }).catch(function(err){
-    emit('order.failed', {orderId:payload.orderId, error:String((err && err.message) || err)});
+    var evf = orderEventData(payload); evf.error = String((err && err.message) || err);
+    emit('order.failed', evf);
     msg.textContent = 'Не вдалося надіслати замовлення. Спробуйте ще раз. (' + (err && err.message ? err.message : err) + ')';
     msg.className = 'msg err show';
   }).finally(function(){ btn.disabled = false; btn.textContent = 'Підтвердити замовлення →'; });
