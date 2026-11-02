@@ -105,6 +105,9 @@ footer{background:var(--dark);color:#fff;border-radius:var(--r) var(--r) 0 0}
 .sum{background:var(--grey);border-radius:16px;padding:14px 16px;font-size:13px}
 .sum div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}.sum .gr{border-top:1px solid #c9ced0;margin-top:8px;padding-top:8px;font-weight:700}
 .ok-s{display:none;text-align:center;padding:48px 24px}.ok-s.show{display:block}.ok-s h3{font:800 24px 'Montserrat',sans-serif;margin-bottom:8px}
+.dlv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dopt{border:1.5px solid #cfd4d6;border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;font:600 13px 'Montserrat',sans-serif}
+.dopt input{display:none}.dopt.on{border-color:var(--green);background:var(--g)}
 </style>
 </head>
 <body>
@@ -169,9 +172,16 @@ footer{background:var(--dark);color:#fff;border-radius:var(--r) var(--r) 0 0}
     <form onsubmit="return false" style="display:flex;flex-direction:column;gap:14px">
       <div class="two"><div class="f"><label for="oName">Ім’я та прізвище *</label><input id="oName"></div><div class="f"><label for="oEmail">Email *</label><input id="oEmail" type="email"></div></div>
       <div class="f"><label for="oPhone">Телефон (з кодом країни) *</label><input id="oPhone" type="tel" placeholder="+380 50 123 4567"></div>
-      <div class="two"><div class="f"><label for="oCountry">Країна *</label><select id="oCountry"><option>Україна</option><option>Польща</option><option>Німеччина</option><option>Інша</option></select></div><div class="f"><label for="oCity">Місто *</label><input id="oCity"></div></div>
-      <div class="two"><div class="f"><label for="oPostal">Індекс</label><input id="oPostal"></div><div class="f"><label for="oApt">Кв./офіс</label><input id="oApt"></div></div>
-      <div class="f"><label for="oAddress">Адреса або відділення пошти *</label><input id="oAddress"></div>
+      <div class="f"><label>Спосіб доставки *</label><div class="dlv">
+        <label class="dopt on"><input type="radio" name="dlv" value="nova_poshta" checked onchange="setDelivery()">Нова Пошта</label>
+        <label class="dopt"><input type="radio" name="dlv" value="ukrposhta" onchange="setDelivery()">Укрпошта</label>
+        <label class="dopt"><input type="radio" name="dlv" value="pickup" onchange="setDelivery()">Самовивіз</label></div></div>
+      <div id="dlvAddr" style="display:flex;flex-direction:column;gap:14px">
+        <div class="two"><div class="f"><label for="oCountry">Країна *</label><select id="oCountry"><option>Україна</option><option>Польща</option><option>Німеччина</option><option>Інша</option></select></div><div class="f"><label for="oCity">Місто *</label><input id="oCity"></div></div>
+        <div class="two" id="upRow" style="display:none"><div class="f"><label for="oPostal">Індекс *</label><input id="oPostal"></div><div class="f"><label for="oApt">Кв./офіс</label><input id="oApt"></div></div>
+        <div class="f"><label for="oAddress" id="oAddressLbl">Відділення або поштомат Нової Пошти *</label><input id="oAddress" placeholder="Напр.: Відділення №5"></div>
+      </div>
+      <div class="sum" id="pickupInfo" style="display:none"></div>
       <div class="f"><label for="oNotes">Коментар</label><textarea id="oNotes" rows="2"></textarea></div>
       <button class="btn" type="button" id="submitOrderBtn" onclick="submitOrderForm()">Підтвердити замовлення →</button>
       <div class="msg" id="orderMsg"></div>
@@ -208,6 +218,10 @@ var CONFIG = {
   // Усередині Apps Script не потрібен, там працює google.script.run.
   // Розгортання: Execute as «Me», доступ «Anyone».
   APPS_SCRIPT_URL: '',
+
+  // Самовивіз: місто і текст, який бачить покупець (впишіть адресу студії та години).
+  PICKUP_CITY: 'Чернівці',
+  PICKUP_INFO: 'Самовивіз зі студії UNIQORN. Адресу та час отримання підтвердимо після замовлення.',
 
   N8N_MODE: 'test',        // 'test' або 'prod'
   DEBUG: false,            // true або ?debug=1 в адресі: показує журнал хуків на сторінці
@@ -329,7 +343,7 @@ function orderEventData(payload){
             lineTotal:it.price * it.qty, spec:p.spec || '', description:p.desc || '', image:p.image || ''};
   });
   return {
-    orderId:payload.orderId, orderDate:payload.orderDate, customer:payload.customer, items:items,
+    orderId:payload.orderId, orderDate:payload.orderDate, customer:payload.customer, delivery:payload.delivery, items:items,
     itemsCount:items.reduce(function(s, x){ return s + x.qty; }, 0),
     subtotal:payload.subtotal, currency:payload.currency,
     summary:items.map(function(x){ return x.name + (x.size ? ' (' + x.size + ')' : '') + ' × ' + x.qty + ' = ' + x.lineTotal + ' ' + payload.currency; }).join('\n')
@@ -371,6 +385,23 @@ function emit(event, data){
       .catch(function(e){ rec.status = 'помилка'; console.warn('[hook] ' + key, e); })
       .then(renderDebug);
   });
+}
+
+// ---- доставка: Нова Пошта, Укрпошта, самовивіз ----
+var DELIVERY = {
+  nova_poshta:{label:'Нова Пошта', addr:'Відділення або поштомат Нової Пошти *', ph:'Напр.: Відділення №5'},
+  ukrposhta:{label:'Укрпошта', addr:'Адреса або відділення Укрпошти *', ph:'Вулиця, будинок або № відділення'},
+  pickup:{label:'Самовивіз'}
+};
+function curDelivery(){ var r = document.querySelector('input[name="dlv"]:checked'); return r ? r.value : 'nova_poshta'; }
+function setDelivery(){
+  var m = curDelivery(), pick = m === 'pickup';
+  Array.prototype.forEach.call(document.querySelectorAll('.dopt'), function(el){ el.classList.toggle('on', el.querySelector('input').checked); });
+  $('dlvAddr').style.display = pick ? 'none' : 'flex';
+  $('upRow').style.display = m === 'ukrposhta' ? '' : 'none';
+  $('pickupInfo').style.display = pick ? '' : 'none';
+  $('pickupInfo').textContent = CONFIG.PICKUP_INFO;
+  if (!pick) { $('oAddressLbl').textContent = DELIVERY[m].addr; $('oAddress').placeholder = DELIVERY[m].ph; }
 }
 
 function renderChips(){
@@ -431,6 +462,7 @@ function toggleCart(){ $('drawer').classList.toggle('open'); $('overlay').classL
 function openOrderForm(){
   if (!cart.length) return;
   emit('checkout.open', {items:cart.length, subtotal:subtotal(), currency:CURRENCY, cart:cartSnapshot()});
+  setDelivery();
   $('orderSummary').innerHTML = cart.map(function(x){
     return '<div><span>' + esc(x.name) + (x.size ? ' (' + x.size + ')' : '') + ' × ' + x.qty + '</span><span>' + money(x.price * x.qty) + '</span></div>';
   }).join('') + '<div class="gr"><span>Разом</span><span>' + money(subtotal()) + '</span></div>';
@@ -469,18 +501,23 @@ function callServer(fn, payload){
 }
 
 function submitOrderForm(){
-  if (!validateFields(['oName','oEmail','oPhone','oCity','oAddress'])) return;
+  var dm = curDelivery(), pick = dm === 'pickup', req = ['oName','oEmail','oPhone'];
+  if (!pick) req.push('oCity','oAddress');
+  if (dm === 'ukrposhta') req.push('oPostal');
+  if (!validateFields(req)) return;
   var btn = $('submitOrderBtn'), msg = $('orderMsg');
   btn.disabled = true; btn.textContent = 'Надсилаємо…'; msg.className = 'msg';
   var payload = {
     customer:{
       fullName:$('oName').value.trim(), email:$('oEmail').value.trim(), phone:$('oPhone').value.trim(),
-      country:$('oCountry').value, city:$('oCity').value.trim(), postalCode:$('oPostal').value.trim(),
-      aptUnit:$('oApt').value.trim(), address:$('oAddress').value.trim(), notes:$('oNotes').value.trim()
+      country:pick ? 'Україна' : $('oCountry').value, city:pick ? CONFIG.PICKUP_CITY : $('oCity').value.trim(),
+      postalCode:pick ? '' : $('oPostal').value.trim(), aptUnit:pick ? '' : $('oApt').value.trim(),
+      address:pick ? 'Самовивіз' : $('oAddress').value.trim(), notes:$('oNotes').value.trim()
     },
     items:cart.map(function(x){ return {id:x.id, name:x.name, category:x.category, size:x.size, qty:x.qty, price:x.price}; }),
     subtotal:subtotal(), currency:CURRENCY, orderDate:new Date().toISOString(),
-    orderId:newId('ORD'), eventType:'order'
+    orderId:newId('ORD'), eventType:'order',
+    delivery:{method:dm, label:DELIVERY[dm].label, details:pick ? CONFIG.PICKUP_INFO : $('oAddress').value.trim()}
   };
   callServer('submitOrder', payload).then(function(res){
     var oid = (res && res.orderId) || payload.orderId;
